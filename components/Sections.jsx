@@ -511,7 +511,7 @@ const AboutSection = ({ lang }) => {
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
             <GlassCard style={{ padding: '48px 32px', textAlign: 'center', borderColor: 'rgba(132,11,255,0.2)', background: 'rgba(132,11,255,0.05)', animation: 'pulse-lhiis 3s ease-in-out infinite' }}>
-              <img src="uploads/LHIISLogo.png" alt="LHIIS" style={{ width: 96, height: 96, objectFit: 'contain', marginBottom: 20 }} />
+              <img src="uploads/ERLogo.png" alt="LHIIS" style={{ width: 120, height: 120, objectFit: 'contain', marginBottom: 20, filter: 'drop-shadow(0 0 24px rgba(132,11,255,0.6))', borderRadius: '50%' }} />
               <p className="about-tagline">"{c.tagline}"</p>
             </GlassCard>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>

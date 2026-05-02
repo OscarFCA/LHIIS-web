@@ -266,9 +266,8 @@ const Footer = ({ lang }) => {
         <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 60, marginBottom: 60 }} className="footer-grid">
           {/* Brand */}
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-              <img src="uploads/LHIISLogo.png" alt="LHIIS" style={{ width: 32, height: 32, objectFit: 'contain' }} />
-              <span className="footer-brand-name grad-text">LHIIS</span>
+            <div style={{ marginBottom: 16 }}>
+              <img src="uploads/LHIIS.svg" alt="LHIIS" style={{ height: 32, width: 'auto', objectFit: 'contain' }} />
             </div>
             <p className="footer-tagline">{tagline}</p>
             <div style={{ display: 'flex', gap: 10 }}>

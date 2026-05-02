@@ -24,7 +24,7 @@ const Nav = ({ lang, setLang }) => {
         <div className="nav-inner">
           {/* Logo */}
           <a href="#hero" className="nav-logo" onClick={e => { e.preventDefault(); scrollTo('#hero'); }}>
-            <img src="uploads/LHIIS%20LOGO.svg" alt="LHIIS" style={{ height: 38, width: 'auto', objectFit: 'contain' }} />
+            <img src="uploads/LHIIS.svg" alt="LHIIS" style={{ height: 36, width: 'auto', objectFit: 'contain' }} />
           </a>
 
           {/* Desktop links */}
