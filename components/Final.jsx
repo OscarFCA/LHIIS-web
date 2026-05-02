@@ -267,7 +267,7 @@ const Footer = ({ lang }) => {
           {/* Brand */}
           <div>
             <div style={{ marginBottom: 16 }}>
-              <img src="uploads/LHIIS.svg" alt="LHIIS" style={{ height: 32, width: 'auto', objectFit: 'contain' }} />
+              <img src="uploads/LHIIS-LOGO.svg" alt="LHIIS" style={{ height: 32, width: 'auto', objectFit: 'contain' }} />
             </div>
             <p className="footer-tagline">{tagline}</p>
             <div style={{ display: 'flex', gap: 10 }}>
@@ -435,7 +435,7 @@ const ChatWidget = ({ lang }) => {
         fontSize: 24, color: '#fff', transition: 'all 0.3s',
         transform: open ? 'rotate(45deg)' : 'none',
       }}>
-        {open ? '×' : '⚡'}
+        {open ? '×' : <img src="uploads/IASparkle.svg" alt="Chat" style={{ width: 28, height: 28, objectFit: 'contain', filter: 'brightness(0) invert(1)' }} />}
       </button>
     </div>
   );
@@ -449,11 +449,11 @@ const WAButton = ({ lang }) => (
       position: 'fixed', bottom: 28, left: 28, zIndex: 9998,
       width: 52, height: 52, borderRadius: '50%',
       background: '#25d366', display: 'flex', alignItems: 'center', justifyContent: 'center',
-      boxShadow: '0 4px 20px rgba(37,211,102,0.4)', transition: 'all 0.2s', textDecoration: 'none', fontSize: 26,
+      boxShadow: '0 4px 20px rgba(37,211,102,0.4)', transition: 'all 0.2s', textDecoration: 'none',
     }}
     onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.1)'; e.currentTarget.style.boxShadow = '0 8px 30px rgba(37,211,102,0.5)'; }}
     onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.boxShadow = '0 4px 20px rgba(37,211,102,0.4)'; }}
-  >💬</a>
+  ><img src="uploads/WhatsApp.svg" alt="WhatsApp" style={{ width: 28, height: 28, objectFit: 'contain' }} /></a>
 );
 
 Object.assign(window, { CTASection, FAQSection, Footer, ChatWidget, WAButton });
