@@ -9,7 +9,10 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Lato:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles/main.css" />
 
   <!-- React + Babel -->
   <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
@@ -19,84 +22,22 @@
   <!-- EmailJS -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
-    // ── EmailJS config ──────────────────────────────────────────────
-    // 1. Crea cuenta en https://www.emailjs.com (gratis, 200 emails/mes)
-    // 2. Crea un Email Service (Gmail/SMTP) y copia el Service ID
-    // 3. Crea un Email Template con las variables: {{from_name}}, {{company}},
-    //    {{size}}, {{industry}}, {{pain}}, {{reply_to}}
-    //    Configura "To Email": contacto@lhiis.com
-    //    Agrega CC: eliasoscarfca@gmail.com
-    // 4. Reemplaza los tres valores de abajo con los tuyos
     window.EMAILJS_PUBLIC_KEY  = 'Cq8DWV0u4k_Q_W3rk';
     window.EMAILJS_SERVICE_ID  = 'service_9p3bzrh';
     window.EMAILJS_TEMPLATE_ID = 'template_oo9madj';
     emailjs.init(window.EMAILJS_PUBLIC_KEY);
   </script>
-
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      background-color: #1a0f28;
-      background-image:
-        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(132,11,255,0.15) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 40% at 80% 100%, rgba(255,0,96,0.08) 0%, transparent 60%);
-      background-attachment: fixed;
-      color: #fff;
-      overflow-x: hidden;
-      min-height: 100vh;
-    }
-
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #1a0f28; }
-    ::-webkit-scrollbar-thumb { background: rgba(132,11,255,0.4); border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: rgba(132,11,255,0.7); }
-
-    /* Range sliders */
-    input[type=range] { -webkit-appearance: none; height: 4px; border-radius: 4px; background: rgba(255,255,255,0.1); outline: none; }
-    input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: linear-gradient(135deg, #840bff, #ff0060); cursor: pointer; box-shadow: 0 0 10px rgba(132,11,255,0.5); }
-    input[type=range]::-moz-range-thumb { width: 18px; height: 18px; border: none; border-radius: 50%; background: linear-gradient(135deg, #840bff, #ff0060); cursor: pointer; }
-
-    /* Animations */
-    @keyframes bounce {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(-8px); }
-    }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 0.3; transform: scale(0.8); }
-      50% { opacity: 1; transform: scale(1.1); }
-    }
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    /* Responsive: hide/show nav items */
-    @media (max-width: 768px) {
-      .nav-links-desktop, .nav-right-desktop { display: none !important; }
-      .nav-hamburger { display: flex !important; }
-      .hero-metrics { display: none !important; }
-      .ecosystem-grid, .about-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
-      .roi-grid { grid-template-columns: 1fr !important; }
-      .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 32px !important; }
-      .steps-line { display: none !important; }
-    }
-    @media (max-width: 480px) {
-      .footer-grid { grid-template-columns: 1fr !important; }
-    }
-
-    /* Selection color */
-    ::selection { background: rgba(132,11,255,0.4); color: #fff; }
-  </style>
 </head>
 <body>
 
-<div id="root"></div>
+  <!-- Loading screen -->
+  <div id="loading">
+    <img src="uploads/LHIISLogo.png" alt="LHIIS" class="loading-logo" style="border-radius: 8px" />
+  </div>
+
+  <div id="page-root">
+    <div id="root"></div>
+  </div>
 
 <!-- Component scripts (order matters) -->
 <script type="text/babel" src="tweaks-panel.jsx"></script>
@@ -110,7 +51,7 @@
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "accentPrimary": "#840bff",
   "accentSecondary": "#ff0060",
-  "bgBase": "#1a0f28",
+  "bgBase": "#0B0F1A",
   "particleCount": 90,
   "showROICalc": true,
   "animationsEnabled": true,
@@ -120,6 +61,78 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
 const App = () => {
   const [lang, setLang] = React.useState('es');
   const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const [showTweaks, setShowTweaks] = React.useState(false);
+
+  // Tweaks protocol
+  React.useEffect(() => {
+    const handler = (e) => {
+      if (e.data?.type === '__activate_edit_mode') setShowTweaks(true);
+      if (e.data?.type === '__deactivate_edit_mode') setShowTweaks(false);
+    };
+    window.addEventListener('message', handler);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', handler);
+  }, []);
+
+  // Fade-up on scroll (IntersectionObserver via page-root)
+  React.useEffect(() => {
+    const scrollRoot = document.getElementById('page-root');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+          obs.unobserve(e.target);
+        }
+      });
+    }, { root: scrollRoot, threshold: 0.04, rootMargin: '0px 0px 80px 0px' });
+
+    setTimeout(() => {
+      document.querySelectorAll('.section').forEach(section => {
+        section.querySelectorAll('.glass-card, .service-card, .filter-tab').forEach((el, i) => {
+          el.style.opacity = '0';
+          el.style.transform = 'translateY(18px)';
+          el.style.transition = `opacity 1.2s ease ${i * 0.04}s, transform 1.2s ease ${i * 0.04}s`;
+          obs.observe(el);
+        });
+      });
+    }, 100);
+
+    return () => obs.disconnect();
+  }, [lang]);
+
+  // Nav scroll detection via page-root
+  React.useEffect(() => {
+    const root = document.getElementById('page-root');
+    const nav = document.getElementById('main-nav');
+    if (!root || !nav) return;
+    const onScroll = () => {
+      if (root.scrollTop > 50) nav.classList.add('nav-scrolled');
+      else nav.classList.remove('nav-scrolled');
+    };
+    root.addEventListener('scroll', onScroll, { passive: true });
+    return () => root.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Smooth anchor links via page-root
+  React.useEffect(() => {
+    const root = document.getElementById('page-root');
+    const handleClick = (e) => {
+      const a = e.target.closest('a[href^="#"]');
+      if (!a) return;
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target && root) root.scrollTo({ top: target.offsetTop - 72, behavior: 'smooth' });
+    };
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
+  }, []);
+
+  // Hide loading screen
+  React.useEffect(() => {
+    const loading = document.getElementById('loading');
+    if (loading) setTimeout(() => loading.classList.add('hidden'), 600);
+  }, []);
 
   return (
     <React.Fragment>
@@ -142,17 +155,19 @@ const App = () => {
       {tweaks.chatWidgetEnabled && <ChatWidget lang={lang} />}
       <WAButton lang={lang} />
 
-      <TweaksPanel>
-        <TweakSection label="Colores" />
-        <TweakColor label="Violeta principal" value={tweaks.accentPrimary} onChange={v => setTweak('accentPrimary', v)} />
-        <TweakColor label="Magenta acento" value={tweaks.accentSecondary} onChange={v => setTweak('accentSecondary', v)} />
-        <TweakSection label="Funcionalidades" />
-        <TweakToggle label="Calculadora de ROI" value={tweaks.showROICalc} onChange={v => setTweak('showROICalc', v)} />
-        <TweakToggle label="Animaciones" value={tweaks.animationsEnabled} onChange={v => setTweak('animationsEnabled', v)} />
-        <TweakToggle label="Chat Widget" value={tweaks.chatWidgetEnabled} onChange={v => setTweak('chatWidgetEnabled', v)} />
-        <TweakSection label="Partículas Hero" />
-        <TweakSlider label="Cantidad" value={tweaks.particleCount} min={20} max={200} step={10} onChange={v => setTweak('particleCount', v)} />
-      </TweaksPanel>
+      {showTweaks && (
+        <TweaksPanel>
+          <TweakSection label="Colores" />
+          <TweakColor label="Violeta principal" value={tweaks.accentPrimary} onChange={v => setTweak('accentPrimary', v)} />
+          <TweakColor label="Magenta acento" value={tweaks.accentSecondary} onChange={v => setTweak('accentSecondary', v)} />
+          <TweakSection label="Funcionalidades" />
+          <TweakToggle label="Calculadora de ROI" value={tweaks.showROICalc} onChange={v => setTweak('showROICalc', v)} />
+          <TweakToggle label="Animaciones" value={tweaks.animationsEnabled} onChange={v => setTweak('animationsEnabled', v)} />
+          <TweakToggle label="Chat Widget" value={tweaks.chatWidgetEnabled} onChange={v => setTweak('chatWidgetEnabled', v)} />
+          <TweakSection label="Partículas Hero" />
+          <TweakSlider label="Cantidad" value={tweaks.particleCount} min={20} max={200} step={10} onChange={v => setTweak('particleCount', v)} />
+        </TweaksPanel>
+      )}
     </React.Fragment>
   );
 };

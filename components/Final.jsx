@@ -1,13 +1,13 @@
 
-// Final.jsx — CTA, FAQ, Footer, Chat Widget
+// Final.jsx — CTA, FAQ, Footer, Chat Widget, WA Button
 
-// ─── S9: CTA Final ────────────────────────────────────────────────
+// ─── S9: CTA / Contacto ───────────────────────────────────────────
 const CTASection = ({ lang }) => {
   const [ref, visible] = useReveal();
-  const [showForm, setShowForm] = React.useState(false);
-  const [formData, setFormData] = React.useState({ name: '', email: '', phone: '', company: '', size: '', industry: '', pain: '' });
+  const [showForm, setShowForm]   = React.useState(false);
+  const [formData, setFormData]   = React.useState({ name: '', email: '', phone: '', company: '', size: '', industry: '', pain: '' });
   const [submitted, setSubmitted] = React.useState(false);
-  const [sending, setSending] = React.useState(false);
+  const [sending, setSending]     = React.useState(false);
   const [sendError, setSendError] = React.useState(false);
 
   const es = {
@@ -18,8 +18,8 @@ const CTASection = ({ lang }) => {
     formBtn: 'Agenda una llamada de diagnóstico',
     trust: ['Respondemos en menos de 2 horas en días hábiles.', 'Sin spam. Sin vendedores agresivos. Solo una conversación honesta sobre tu operación.'],
     fields: { name: 'Nombre completo *', email: 'Correo electrónico *', phone: 'Teléfono / WhatsApp *', company: 'Empresa *', size: 'Número de colaboradores', industry: 'Industria', pain: '¿Cuál es tu mayor dolor operativo hoy?', submit: 'Enviar y agendar diagnóstico →' },
-    sizes: ['1 – 10', '11 – 30', '31 – 80', '80+'],
-    industries: ['Servicios profesionales', 'Salud', 'Inmobiliaria', 'Logística', 'Retail / Comercio', 'Educación', 'Eventos y entretenimiento', 'Otro'],
+    sizes: ['1 – 10','11 – 30','31 – 80','80+'],
+    industries: ['Servicios profesionales','Salud','Inmobiliaria','Logística','Retail / Comercio','Educación','Eventos y entretenimiento','Otro'],
     successTitle: '¡Solicitud recibida!',
     successText: 'En menos de 2 horas te contactamos al WhatsApp o correo para agendar tu diagnóstico gratuito.',
     successWA: 'Escríbenos por WhatsApp ahora →',
@@ -32,42 +32,24 @@ const CTASection = ({ lang }) => {
     formBtn: 'Book a diagnosis call',
     trust: ['We respond within 2 hours on business days.', 'No spam. No aggressive salespeople. Just an honest conversation about your operation.'],
     fields: { name: 'Full name *', email: 'Email address *', phone: 'Phone / WhatsApp *', company: 'Company *', size: 'Number of employees', industry: 'Industry', pain: "What's your biggest operational challenge today?", submit: 'Submit and book diagnosis →' },
-    sizes: ['1 – 10', '11 – 30', '31 – 80', '80+'],
-    industries: ['Professional services', 'Healthcare', 'Real estate', 'Logistics', 'Retail / Commerce', 'Education', 'Events & entertainment', 'Other'],
+    sizes: ['1 – 10','11 – 30','31 – 80','80+'],
+    industries: ['Professional services','Healthcare','Real estate','Logistics','Retail / Commerce','Education','Events & entertainment','Other'],
     successTitle: 'Request received!',
     successText: "We'll contact you within 2 hours on WhatsApp or email to schedule your free diagnosis.",
     successWA: 'Message us on WhatsApp now →',
   };
   const c = lang === 'es' ? es : en;
 
-  const inputStyle = {
-    fontFamily: "'Exo 2',sans-serif", fontSize: 14,
-    background: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(10px)',
-    border: '1px solid rgba(255,255,255,0.10)', borderRadius: 10,
-    color: '#fff', padding: '12px 16px', width: '100%', boxSizing: 'border-box',
-    outline: 'none', transition: 'border-color 0.2s',
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSending(true);
     setSendError(false);
     try {
-      await emailjs.send(
-        window.EMAILJS_SERVICE_ID,
-        window.EMAILJS_TEMPLATE_ID,
-        {
-          from_name: formData.name,
-          email:     formData.email,
-          phone:     formData.phone,
-          company:   formData.company,
-          size:      formData.size,
-          industry:  formData.industry,
-          pain:      formData.pain,
-          reply_to:  formData.email,
-          lang:      lang,
-        }
-      );
+      await emailjs.send(window.EMAILJS_SERVICE_ID, window.EMAILJS_TEMPLATE_ID, {
+        from_name: formData.name, email: formData.email, phone: formData.phone,
+        company: formData.company, size: formData.size, industry: formData.industry,
+        pain: formData.pain, reply_to: formData.email, lang,
+      });
       setSubmitted(true);
     } catch (err) {
       console.error('EmailJS error:', err);
@@ -78,118 +60,100 @@ const CTASection = ({ lang }) => {
   };
 
   return (
-    <section id="contacto" style={{ padding: '120px clamp(16px,5vw,60px)', position: 'relative' }}>
-      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 0%, rgba(132,11,255,0.06) 50%, transparent 100%)', pointerEvents: 'none' }} />
-      <div style={{ position: 'absolute', top: '15%', left: '5%', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(132,11,255,0.09) 0%, transparent 70%)', filter: 'blur(60px)', pointerEvents: 'none' }} />
-      <div style={{ position: 'absolute', bottom: '10%', right: '5%', width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,0,96,0.08) 0%, transparent 70%)', filter: 'blur(60px)', pointerEvents: 'none' }} />
+    <section id="contacto" className="section">
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 0%, rgba(132,11,255,0.05) 50%, transparent 100%)', pointerEvents: 'none' }} />
+      <div style={{ position: 'absolute', top: '15%', left: '5%', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(132,11,255,0.08) 0%, transparent 70%)', filter: 'blur(70px)', pointerEvents: 'none' }} />
+      <div style={{ position: 'absolute', bottom: '10%', right: '5%', width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,0,96,0.07) 0%, transparent 70%)', filter: 'blur(70px)', pointerEvents: 'none' }} />
 
-      <div ref={ref} style={{ maxWidth: 760, margin: '0 auto', textAlign: 'center', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(40px)', transition: 'all 0.7s ease' }}>
+      <div ref={ref} className="section-inner" style={{ maxWidth: 760, opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(40px)', transition: 'all 0.7s ease', textAlign: 'center' }}>
         <SectionLabel text={c.eyebrow} />
-        <SectionHeadline style={{ maxWidth: 580, margin: '0 auto 20px' }}>
+        <SectionHeadline center style={{ maxWidth: 580 }}>
           {c.h.split('\n').map((l, i) => <span key={i} style={{ display: 'block' }}>{l}</span>)}
         </SectionHeadline>
-        <p style={{ fontFamily: "'Exo 2',sans-serif", fontSize: 17, color: 'rgba(255,255,255,0.6)', lineHeight: 1.75, maxWidth: 540, margin: '0 auto 48px' }}>{c.sub}</p>
+        <p style={{ fontFamily: "'Lato', sans-serif", fontSize: 17, color: 'rgba(229,231,235,0.6)', lineHeight: 1.75, maxWidth: 540, margin: '0 auto 48px' }}>{c.sub}</p>
 
         <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 40 }}>
-          <a href="https://wa.me/525531650560" target="_blank" rel="noopener noreferrer" style={{
-            fontFamily: "'Exo 2',sans-serif", fontWeight: 700, fontSize: 16,
-            background: 'linear-gradient(90deg,#840bff,#ff0060)',
-            color: '#fff', textDecoration: 'none', padding: '16px 32px', borderRadius: 12,
-            boxShadow: '0 0 30px rgba(132,11,255,0.4)', transition: 'all 0.2s', display: 'inline-block',
-          }}
-          onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 40px rgba(255,0,96,0.5)'; }}
-          onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 0 30px rgba(132,11,255,0.4)'; }}
-          >{c.wa}</a>
-
-          <button onClick={() => setShowForm(!showForm)} style={{
-            fontFamily: "'Exo 2',sans-serif", fontWeight: 600, fontSize: 16,
-            background: 'rgba(255,255,255,0.06)', backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.8)',
-            padding: '16px 32px', borderRadius: 12, cursor: 'pointer', transition: 'all 0.2s',
-          }}
-          onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(132,11,255,0.4)'; e.currentTarget.style.color = '#fff'; }}
-          onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)'; e.currentTarget.style.color = 'rgba(255,255,255,0.8)'; }}
-          >{c.formBtn}</button>
+          <a href="https://wa.me/525531650560" target="_blank" rel="noopener noreferrer"
+            className="btn-primary btn-halo btn-lg">
+            {c.wa}
+          </a>
+          <button onClick={() => setShowForm(!showForm)} className="btn-secondary btn-lg">
+            {c.formBtn}
+          </button>
         </div>
 
         {showForm && (
           <GlassCard style={{ padding: '40px 36px', textAlign: 'left', marginBottom: 32, borderColor: 'rgba(132,11,255,0.2)' }}>
             {submitted ? (
               <div style={{ textAlign: 'center', padding: '20px 0' }}>
-                <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'linear-gradient(135deg,#840bff,#ff0060)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: 28 }}>✓</div>
-                <h3 style={{ fontFamily: "'Exo 2',sans-serif", fontWeight: 800, fontSize: 24, color: '#fff', margin: '0 0 12px' }}>{c.successTitle}</h3>
-                <p style={{ fontFamily: "'Exo 2',sans-serif", fontSize: 15, color: 'rgba(255,255,255,0.65)', margin: '0 0 24px', lineHeight: 1.7 }}>{c.successText}</p>
-                <a href="https://wa.me/525531650560" target="_blank" rel="noopener noreferrer" style={{
-                  fontFamily: "'Exo 2',sans-serif", fontWeight: 700, fontSize: 15,
-                  background: 'linear-gradient(90deg,#840bff,#ff0060)', color: '#fff',
-                  textDecoration: 'none', padding: '14px 28px', borderRadius: 10, display: 'inline-block',
-                }}>{c.successWA}</a>
+                <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'var(--grad)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: 28 }}>✓</div>
+                <h3 style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 800, fontSize: 24, color: '#fff', margin: '0 0 12px' }}>{c.successTitle}</h3>
+                <p style={{ fontFamily: "'Lato', sans-serif", fontSize: 15, color: 'rgba(229,231,235,0.65)', margin: '0 0 24px', lineHeight: 1.7 }}>{c.successText}</p>
+                <a href="https://wa.me/525531650560" target="_blank" rel="noopener noreferrer"
+                  className="btn-primary btn-halo">{c.successWA}</a>
               </div>
             ) : (
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                {/* Row 1: nombre + empresa */}
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
                   {[['name', c.fields.name], ['company', c.fields.company]].map(([key, label]) => (
                     <div key={key}>
-                      <label style={{ fontFamily: "'Exo 2',sans-serif", fontSize: 11, color: 'rgba(255,255,255,0.45)', display: 'block', marginBottom: 6, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.07em' }}>{label}</label>
-                      <input required style={inputStyle} value={formData[key]} onChange={e => setFormData({...formData, [key]: e.target.value})}
-                        onFocus={e => e.target.style.borderColor = 'rgba(132,11,255,0.6)'}
-                        onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.10)'} />
+                      <label className="form-label">{label}</label>
+                      <input required className="form-input" value={formData[key]}
+                        onChange={e => setFormData({...formData, [key]: e.target.value})} />
                     </div>
                   ))}
                 </div>
+                {/* Row 2: email + phone */}
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
                   <div>
-                    <label style={{ fontFamily: "'Exo 2',sans-serif", fontSize: 11, color: 'rgba(255,255,255,0.45)', display: 'block', marginBottom: 6, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.07em' }}>{c.fields.email}</label>
-                    <input required type="email" style={inputStyle} value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})}
-                      onFocus={e => e.target.style.borderColor = 'rgba(132,11,255,0.6)'}
-                      onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.10)'} />
+                    <label className="form-label">{c.fields.email}</label>
+                    <input required type="email" className="form-input" value={formData.email}
+                      onChange={e => setFormData({...formData, email: e.target.value})} />
                   </div>
                   <div>
-                    <label style={{ fontFamily: "'Exo 2',sans-serif", fontSize: 11, color: 'rgba(255,255,255,0.45)', display: 'block', marginBottom: 6, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.07em' }}>{c.fields.phone}</label>
-                    <input required type="tel" style={inputStyle} value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})}
-                      onFocus={e => e.target.style.borderColor = 'rgba(132,11,255,0.6)'}
-                      onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.10)'} />
+                    <label className="form-label">{c.fields.phone}</label>
+                    <input required type="tel" className="form-input" value={formData.phone}
+                      onChange={e => setFormData({...formData, phone: e.target.value})} />
                   </div>
                 </div>
+                {/* Row 3: tamaño + industria */}
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
                   {[['size', c.fields.size, c.sizes], ['industry', c.fields.industry, c.industries]].map(([key, label, opts]) => (
                     <div key={key}>
-                      <label style={{ fontFamily: "'Exo 2',sans-serif", fontSize: 11, color: 'rgba(255,255,255,0.45)', display: 'block', marginBottom: 6, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.07em' }}>{label}</label>
-                      <select style={{...inputStyle, cursor: 'pointer'}} value={formData[key]} onChange={e => setFormData({...formData, [key]: e.target.value})}>
-                        <option value="" style={{ background: '#1a1026' }}>—</option>
-                        {opts.map(o => <option key={o} value={o} style={{ background: '#1a1026' }}>{o}</option>)}
+                      <label className="form-label">{label}</label>
+                      <select className="form-input" style={{ cursor: 'pointer' }} value={formData[key]}
+                        onChange={e => setFormData({...formData, [key]: e.target.value})}>
+                        <option value="" style={{ background: '#0B0F1A' }}>—</option>
+                        {opts.map(o => <option key={o} value={o} style={{ background: '#0B0F1A' }}>{o}</option>)}
                       </select>
                     </div>
                   ))}
                 </div>
+                {/* Textarea */}
                 <div>
-                  <label style={{ fontFamily: "'Exo 2',sans-serif", fontSize: 11, color: 'rgba(255,255,255,0.45)', display: 'block', marginBottom: 6, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.07em' }}>{c.fields.pain}</label>
-                  <textarea required rows={4} style={{...inputStyle, resize: 'vertical', lineHeight: 1.65}} value={formData.pain} onChange={e => setFormData({...formData, pain: e.target.value})}
-                    onFocus={e => e.target.style.borderColor = 'rgba(132,11,255,0.6)'}
-                    onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.10)'} />
+                  <label className="form-label">{c.fields.pain}</label>
+                  <textarea required rows={4} className="form-input" style={{ resize: 'vertical', lineHeight: 1.65 }}
+                    value={formData.pain} onChange={e => setFormData({...formData, pain: e.target.value})} />
                 </div>
                 {sendError && (
-                  <p style={{ fontFamily: "'Exo 2',sans-serif", fontSize: 13, color: '#ff6b6b', margin: 0, textAlign: 'center' }}>
+                  <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#ff6b6b', margin: 0, textAlign: 'center', letterSpacing: '0.03em' }}>
                     {lang === 'es' ? 'Hubo un error al enviar. Escríbenos directamente por WhatsApp.' : 'There was an error sending. Please message us on WhatsApp directly.'}
                   </p>
                 )}
-                <button type="submit" disabled={sending} style={{
-                  fontFamily: "'Exo 2',sans-serif", fontWeight: 700, fontSize: 16,
-                  background: sending ? 'rgba(132,11,255,0.4)' : 'linear-gradient(90deg,#840bff,#ff0060)', color: '#fff',
-                  border: 'none', padding: '16px 32px', borderRadius: 12, cursor: sending ? 'not-allowed' : 'pointer',
-                  boxShadow: '0 0 24px rgba(132,11,255,0.35)', transition: 'all 0.2s', opacity: sending ? 0.7 : 1,
-                }}
-                onMouseEnter={e => { if (!sending) { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 8px 36px rgba(255,0,96,0.45)'; } }}
-                onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 0 24px rgba(132,11,255,0.35)'; }}
-                >{sending ? (lang === 'es' ? 'Enviando...' : 'Sending...') : c.fields.submit}</button>
+                <button type="submit" disabled={sending}
+                  className="btn-primary btn-halo"
+                  style={{ justifyContent: 'center', fontSize: 15, opacity: sending ? 0.7 : 1, cursor: sending ? 'not-allowed' : 'pointer' }}>
+                  {sending ? (lang === 'es' ? 'Enviando...' : 'Sending...') : c.fields.submit}
+                </button>
               </form>
             )}
           </GlassCard>
         )}
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
           {c.trust.map((line, i) => (
-            <p key={i} style={{ fontFamily: "'Exo 2',sans-serif", fontSize: 13, color: 'rgba(255,255,255,0.35)', margin: 0, lineHeight: 1.6 }}>{line}</p>
+            <p key={i} className="trust-line">{line}</p>
           ))}
         </div>
       </div>
@@ -224,11 +188,11 @@ const FAQSection = ({ lang }) => {
     : { eyebrow: 'FAQ', h: 'What people ask us most\nbefore booking', waText: 'Have another question? → Message us directly on WhatsApp' };
 
   return (
-    <section id="faq" style={{ padding: '120px clamp(16px,5vw,60px)', position: 'relative' }}>
-      <div ref={ref} style={{ maxWidth: 800, margin: '0 auto', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(40px)', transition: 'all 0.7s ease' }}>
-        <div style={{ textAlign: 'center', marginBottom: 56 }}>
+    <section id="faq" className="section section-alt">
+      <div ref={ref} className="section-inner" style={{ maxWidth: 800, opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(40px)', transition: 'all 0.7s ease' }}>
+        <div className="section-header">
           <SectionLabel text={c.eyebrow} />
-          <SectionHeadline style={{ maxWidth: 500, margin: '0 auto' }}>
+          <SectionHeadline center style={{ maxWidth: 500 }}>
             {c.h.split('\n').map((l, i) => <span key={i} style={{ display: 'block' }}>{l}</span>)}
           </SectionHeadline>
         </div>
@@ -245,22 +209,15 @@ const FAQSection = ({ lang }) => {
                 width: '100%', background: 'none', border: 'none', cursor: 'pointer',
                 padding: '22px 28px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16,
               }}>
-                <span style={{ fontFamily: "'Exo 2',sans-serif", fontWeight: 700, fontSize: 16, color: '#fff', textAlign: 'left', lineHeight: 1.4 }}>{faq.q}</span>
-                <span style={{
-                  width: 28, height: 28, borderRadius: '50%', flexShrink: 0,
-                  background: open === i ? 'linear-gradient(135deg,#840bff,#ff0060)' : 'rgba(255,255,255,0.08)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 16, color: '#fff', transition: 'all 0.25s',
-                  transform: open === i ? 'rotate(45deg)' : 'none',
-                }}>+</span>
+                <span className="faq-q">{faq.q}</span>
+                <span className={`faq-icon ${open === i ? 'faq-icon-open' : 'faq-icon-closed'}`}>+</span>
               </button>
               {open === i && (
                 <div style={{ padding: '0 28px 24px' }}>
                   {faq.a.split('\n').map((line, li) => (
-                    <p key={li} style={{
-                      fontFamily: "'Exo 2',sans-serif", fontSize: 14,
-                      color: line.startsWith('·') ? 'rgba(255,255,255,0.75)' : 'rgba(255,255,255,0.6)',
-                      lineHeight: 1.75, margin: li === 0 ? 0 : '2px 0 0',
+                    <p key={li} className="faq-answer-line" style={{
+                      color: line.startsWith('·') ? 'rgba(229,231,235,0.75)' : 'rgba(229,231,235,0.6)',
+                      margin: li === 0 ? 0 : '2px 0 0',
                       paddingLeft: line.startsWith('·') ? 8 : 0,
                     }}>{line}</p>
                   ))}
@@ -271,11 +228,10 @@ const FAQSection = ({ lang }) => {
         </div>
 
         <div style={{ textAlign: 'center', marginTop: 40 }}>
-          <a href="https://wa.me/525531650560" target="_blank" rel="noopener noreferrer" style={{
-            fontFamily: "'Exo 2',sans-serif", fontWeight: 600, fontSize: 14,
-            background: 'linear-gradient(90deg,#840bff,#ff0060)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-            textDecoration: 'none',
-          }}>{c.waText}</a>
+          <a href="https://wa.me/525531650560" target="_blank" rel="noopener noreferrer"
+            style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 600, fontSize: 14, background: 'var(--grad-h)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', textDecoration: 'none' }}>
+            {c.waText}
+          </a>
         </div>
       </div>
     </section>
@@ -285,137 +241,106 @@ const FAQSection = ({ lang }) => {
 // ─── Footer ───────────────────────────────────────────────────────
 const Footer = ({ lang }) => {
   const scrollTo = (id) => {
+    const root = document.getElementById('page-root');
     const el = document.querySelector(id);
-    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+    if (el && root) root.scrollTo({ top: el.offsetTop - 72, behavior: 'smooth' });
   };
 
-  const services_es = ['Agentes de IA y Chatbots', 'Desarrollo a la Medida + IA', 'Presencia Digital y Funnels', 'Soporte y Mantenimiento'];
-  const services_en = ['AI Agents & Chatbots', 'Custom Development + AI', 'Digital Presence & Funnels', 'Support & Maintenance'];
-  const company_es = [['Quiénes somos', '#nosotros'], ['Casos de éxito', '#casos'], ['FAQ', '#faq']];
-  const company_en = [['About us', '#nosotros'], ['Case studies', '#casos'], ['FAQ', '#faq']];
+  const services_es = ['Agentes de IA y Chatbots','Desarrollo a la Medida + IA','Presencia Digital y Funnels','Soporte y Mantenimiento'];
+  const services_en = ['AI Agents & Chatbots','Custom Development + AI','Digital Presence & Funnels','Support & Maintenance'];
+  const company_es  = [['Quiénes somos','#nosotros'],['Casos de éxito','#casos'],['FAQ','#faq']];
+  const company_en  = [['About us','#nosotros'],['Case studies','#casos'],['FAQ','#faq']];
 
-  const services = lang === 'es' ? services_es : services_en;
-  const company = lang === 'es' ? company_es : company_en;
-  const tagline = lang === 'es' ? 'Encendemos futuros.' : 'We ignite futures.';
-  const servicesLabel = lang === 'es' ? 'Servicios' : 'Services';
-  const companyLabel = lang === 'es' ? 'Empresa' : 'Company';
-  const contactLabel = 'Contacto';
-  const strategyLabel = lang === 'es' ? 'Estrategia' : 'Strategy';
-  const rights = lang === 'es' ? 'Todos los derechos reservados' : 'All rights reserved';
-  const privacy = lang === 'es' ? 'Política de privacidad' : 'Privacy policy';
-
-  const colHead = (txt) => (
-    <div style={{ fontFamily: "'Exo 2',sans-serif", fontWeight: 700, fontSize: 12, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 20 }}>{txt}</div>
-  );
-  const footLink = (label, href, isExternal) => (
-    <a key={label} href={href}
-      {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : { onClick: e => { e.preventDefault(); scrollTo(href); } })}
-      style={{ fontFamily: "'Exo 2',sans-serif", fontSize: 14, color: 'rgba(255,255,255,0.55)', textDecoration: 'none', display: 'block', marginBottom: 10, transition: 'color 0.2s', lineHeight: 1.4 }}
-      onMouseEnter={e => e.target.style.color = '#fff'}
-      onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,0.55)'}
-    >{label}</a>
-  );
+  const services      = lang === 'es' ? services_es : services_en;
+  const company       = lang === 'es' ? company_es : company_en;
+  const tagline       = lang === 'es' ? 'Encendemos futuros.' : 'We ignite futures.';
+  const servicesLabel = lang === 'es' ? 'Servicios'   : 'Services';
+  const companyLabel  = lang === 'es' ? 'Empresa'     : 'Company';
+  const strategyLabel = lang === 'es' ? 'Estrategia'  : 'Strategy';
+  const rights        = lang === 'es' ? 'Todos los derechos reservados' : 'All rights reserved';
+  const privacy       = lang === 'es' ? 'Política de privacidad' : 'Privacy policy';
 
   return (
-    <footer style={{ borderTop: '1px solid rgba(255,255,255,0.07)', padding: '80px clamp(16px,5vw,60px) 40px' }}>
-      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+    <footer className="footer">
+      <div className="footer-inner">
         <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 60, marginBottom: 60 }} className="footer-grid">
           {/* Brand */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
               <img src="uploads/LHIISLogo.png" alt="LHIIS" style={{ width: 32, height: 32, objectFit: 'contain' }} />
-              <span style={{ fontFamily: "'Exo 2',sans-serif", fontWeight: 700, fontSize: 20, background: 'linear-gradient(90deg,#840bff,#ff0060)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>LHIIS</span>
+              <span className="footer-brand-name grad-text">LHIIS</span>
             </div>
-            <p style={{ fontFamily: "'Exo 2',sans-serif", fontSize: 14, color: 'rgba(255,255,255,0.45)', lineHeight: 1.7, margin: '0 0 24px', maxWidth: 260 }}>{tagline}</p>
-            <div style={{ display: 'flex', gap: 12 }}>
-              {[
-                { label: 'LinkedIn', href: 'https://www.linkedin.com/company/lhiis/?viewAsMember=true' },
-              ].map(s => (
-                <a key={s.label} href={s.href} style={{
-                  fontFamily: "'Exo 2',sans-serif", fontSize: 12, fontWeight: 600,
-                  color: 'rgba(255,255,255,0.5)', textDecoration: 'none',
-                  padding: '6px 14px', borderRadius: 100,
-                  border: '1px solid rgba(255,255,255,0.1)', transition: 'all 0.2s',
-                }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(132,11,255,0.4)'; e.currentTarget.style.color = '#fff'; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = 'rgba(255,255,255,0.5)'; }}
-                >{s.label}</a>
-              ))}
+            <p className="footer-tagline">{tagline}</p>
+            <div style={{ display: 'flex', gap: 10 }}>
+              <a href="https://www.linkedin.com/company/lhiis/?viewAsMember=true" target="_blank" rel="noopener noreferrer"
+                className="footer-social">LinkedIn</a>
             </div>
           </div>
 
           {/* Services */}
           <div>
-            {colHead(servicesLabel)}
+            <div className="footer-col-head">{servicesLabel}</div>
             {services.map(s => (
-              <a key={s} href="#servicios" onClick={e => { e.preventDefault(); scrollTo('#servicios'); }} style={{ fontFamily: "'Exo 2',sans-serif", fontSize: 13, color: 'rgba(255,255,255,0.55)', textDecoration: 'none', display: 'block', marginBottom: 10, transition: 'color 0.2s', lineHeight: 1.4 }}
-                onMouseEnter={e => e.target.style.color = '#fff'}
-                onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,0.55)'}
-              >{s}</a>
+              <a key={s} href="#servicios" onClick={e => { e.preventDefault(); scrollTo('#servicios'); }}
+                className="footer-link">{s}</a>
             ))}
           </div>
 
           {/* Company */}
           <div>
-            {colHead(companyLabel)}
-            {company.map(([label, href]) => footLink(label, href, false))}
+            <div className="footer-col-head">{companyLabel}</div>
+            {company.map(([label, href]) => (
+              <a key={label} href={href} onClick={e => { e.preventDefault(); scrollTo(href); }}
+                className="footer-link">{label}</a>
+            ))}
           </div>
 
           {/* Contact */}
           <div>
-            {colHead(contactLabel)}
-            {footLink('contacto@lhiis.com', 'mailto:contacto@lhiis.com', true)}
-            {footLink('(55) 3165 0560', 'https://wa.me/525531650560', true)}
-            {footLink('www.lhiis.com', '#', false)}
+            <div className="footer-col-head">Contacto</div>
+            <a href="mailto:contacto@lhiis.com" className="footer-link">contacto@lhiis.com</a>
+            <a href="https://wa.me/525531650560" target="_blank" rel="noopener noreferrer" className="footer-link">(55) 3165 0560</a>
+            <a href="#" className="footer-link">www.lhiis.com</a>
             <div style={{ marginTop: 16, paddingTop: 16, borderTop: '1px solid rgba(255,255,255,0.07)' }}>
-              {colHead(strategyLabel)}
-              {footLink('Elías Rico →', 'https://er-consulting.marmolejo-villa.org', true)}
+              <div className="footer-col-head">{strategyLabel}</div>
+              <a href="https://er-consulting.marmolejo-villa.org" target="_blank" rel="noopener noreferrer" className="footer-link">
+                Elías Rico →
+              </a>
             </div>
           </div>
         </div>
 
         {/* Bottom bar */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12, paddingTop: 32, borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-          <p style={{ fontFamily: "'Exo 2',sans-serif", fontSize: 12, color: 'rgba(255,255,255,0.3)', margin: 0 }}>© 2026 LHIIS · {rights}</p>
-          <a href="#" style={{ fontFamily: "'Exo 2',sans-serif", fontSize: 12, color: 'rgba(255,255,255,0.3)', textDecoration: 'none', transition: 'color 0.2s' }}
-            onMouseEnter={e => e.target.style.color = 'rgba(255,255,255,0.6)'}
-            onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,0.3)'}
-          >{privacy}</a>
+          <p className="footer-copy">© 2026 LHIIS · {rights}</p>
+          <a href="#" className="footer-privacy">{privacy}</a>
         </div>
       </div>
     </footer>
   );
 };
 
-// ─── Chat Widget (AI Placeholder — scalable to real AI) ────────────
+// ─── Chat Widget ─────────────────────────────────────────────────
 const ChatWidget = ({ lang }) => {
-  const [open, setOpen] = React.useState(false);
-  const [msgs, setMsgs] = React.useState([]);
-  const [input, setInput] = React.useState('');
+  const [open, setOpen]     = React.useState(false);
+  const [msgs, setMsgs]     = React.useState([]);
+  const [input, setInput]   = React.useState('');
   const [typing, setTyping] = React.useState(false);
-  const bottomRef = React.useRef(null);
+  const bottomRef           = React.useRef(null);
 
   const INTRO = lang === 'es'
     ? 'Hola 👋 Soy el agente de LHIIS. Puedo ayudarte a entender cómo la IA puede transformar tu operación. ¿Cuál es el mayor reto en tu empresa hoy?'
     : "Hi 👋 I'm the LHIIS agent. I can help you understand how AI can transform your operation. What's your biggest business challenge today?";
 
   React.useEffect(() => {
-    if (open && msgs.length === 0) {
-      setTimeout(() => setMsgs([{ role: 'agent', text: INTRO }]), 400);
-    }
+    if (open && msgs.length === 0) setTimeout(() => setMsgs([{ role: 'agent', text: INTRO }]), 400);
   }, [open]);
 
   React.useEffect(() => {
-    if (bottomRef.current) {
-      bottomRef.current.parentElement.scrollTop = bottomRef.current.offsetTop;
-    }
+    if (bottomRef.current) bottomRef.current.parentElement.scrollTop = bottomRef.current.offsetTop;
   }, [msgs, typing]);
 
-  // NOTE FOR CLAUDE CODE: Replace simulateReply with a real AI call.
-  // Suggested: window.claude.complete() for quick integration, or
-  // connect to LHIIS's own agent backend (n8n / Make webhook).
-  // The widget state (msgs array) is ready for real responses.
-  const simulateReply = (userMsg) => {
+  const simulateReply = () => {
     const replies_es = [
       '¡Entendido! Ese es exactamente el tipo de problema que resolvemos. ¿Cuántas personas tiene tu equipo actualmente?',
       'Perfecto. Con esa información puedo darte una idea más concreta. ¿Ya tienes WhatsApp Business activo en tu empresa?',
@@ -439,49 +364,44 @@ const ChatWidget = ({ lang }) => {
     setTyping(true);
     setTimeout(() => {
       setTyping(false);
-      setMsgs(prev => [...prev, { role: 'agent', text: simulateReply(text) }]);
+      setMsgs(prev => [...prev, { role: 'agent', text: simulateReply() }]);
     }, 1200 + Math.random() * 600);
   };
 
   const placeholder = lang === 'es' ? 'Escribe tu mensaje...' : 'Type your message...';
-  const chatTitle = lang === 'es' ? 'Agente LHIIS' : 'LHIIS Agent';
-  const chatSub = lang === 'es' ? 'IA en vivo · Responde en segundos' : 'Live AI · Responds in seconds';
+  const chatTitle   = lang === 'es' ? 'Agente LHIIS'          : 'LHIIS Agent';
+  const chatSub     = lang === 'es' ? 'IA en vivo · Responde en segundos' : 'Live AI · Responds in seconds';
 
   return (
     <div style={{ position: 'fixed', bottom: 28, right: 28, zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 12 }}>
-      {/* Chat window */}
       {open && (
         <div style={{
-          width: 360, background: 'rgba(25,15,40,0.97)', backdropFilter: 'blur(24px)',
+          width: 360, background: 'rgba(11,15,26,0.97)', backdropFilter: 'blur(24px)',
           border: '1px solid rgba(132,11,255,0.3)', borderRadius: 20,
           boxShadow: '0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(132,11,255,0.1)',
-          display: 'flex', flexDirection: 'column', overflow: 'hidden',
-          animation: 'fadeUp 0.3s ease',
+          display: 'flex', flexDirection: 'column', overflow: 'hidden', animation: 'fadeUp 0.3s ease',
         }}>
-          {/* Header */}
           <div style={{ padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', gap: 12, background: 'rgba(132,11,255,0.08)' }}>
-            <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'linear-gradient(135deg,#840bff,#ff0060)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, flexShrink: 0 }}>⚡</div>
+            <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'var(--grad)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, flexShrink: 0 }}>⚡</div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontFamily: "'Exo 2',sans-serif", fontWeight: 700, fontSize: 14, color: '#fff' }}>{chatTitle}</div>
+              <div className="chat-title-text">{chatTitle}</div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                 <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#22c55e' }} />
-                <span style={{ fontFamily: "'Exo 2',sans-serif", fontSize: 11, color: 'rgba(255,255,255,0.5)' }}>{chatSub}</span>
+                <span className="chat-sub-text">{chatSub}</span>
               </div>
             </div>
             <button onClick={() => setOpen(false)} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.4)', cursor: 'pointer', fontSize: 18, padding: 4, lineHeight: 1 }}>×</button>
           </div>
 
-          {/* Messages */}
           <div style={{ height: 320, overflowY: 'auto', padding: '16px 16px 8px', display: 'flex', flexDirection: 'column', gap: 12, scrollbarWidth: 'thin', scrollbarColor: 'rgba(132,11,255,0.3) transparent' }}>
             {msgs.map((m, i) => (
               <div key={i} style={{ display: 'flex', justifyContent: m.role === 'user' ? 'flex-end' : 'flex-start' }}>
                 <div style={{
-                  maxWidth: '82%', padding: '10px 14px', borderRadius: m.role === 'user' ? '14px 14px 4px 14px' : '14px 14px 14px 4px',
-                  background: m.role === 'user' ? 'linear-gradient(135deg,#840bff,#ff0060)' : 'rgba(255,255,255,0.07)',
-                  fontFamily: "'Exo 2',sans-serif", fontSize: 13, color: '#fff', lineHeight: 1.6,
-                }}>
-                  {m.text}
-                </div>
+                  maxWidth: '82%', padding: '10px 14px',
+                  borderRadius: m.role === 'user' ? '14px 14px 4px 14px' : '14px 14px 14px 4px',
+                  background: m.role === 'user' ? 'var(--grad)' : 'rgba(255,255,255,0.07)',
+                  fontFamily: "'Lato', sans-serif", fontSize: 13, color: '#fff', lineHeight: 1.6,
+                }}>{m.text}</div>
               </div>
             ))}
             {typing && (
@@ -496,32 +416,21 @@ const ChatWidget = ({ lang }) => {
             <div ref={bottomRef} />
           </div>
 
-          {/* Input */}
           <div style={{ padding: '12px 16px', borderTop: '1px solid rgba(255,255,255,0.07)', display: 'flex', gap: 8 }}>
-            <input
-              value={input} onChange={e => setInput(e.target.value)}
-              onKeyDown={e => e.key === 'Enter' && sendMsg()}
+            <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && sendMsg()}
               placeholder={placeholder}
-              style={{
-                flex: 1, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
-                borderRadius: 10, padding: '10px 14px', color: '#fff',
-                fontFamily: "'Exo 2',sans-serif", fontSize: 13, outline: 'none',
-              }}
-            />
-            <button onClick={sendMsg} style={{
-              width: 40, height: 40, borderRadius: 10, border: 'none', cursor: 'pointer',
-              background: 'linear-gradient(135deg,#840bff,#ff0060)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 16, color: '#fff', flexShrink: 0,
-            }}>→</button>
+              style={{ flex: 1, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, padding: '10px 14px', color: '#fff', fontFamily: "'Lato', sans-serif", fontSize: 13, outline: 'none' }} />
+            <button onClick={sendMsg}
+              style={{ width: 40, height: 40, borderRadius: 10, border: 'none', cursor: 'pointer', background: 'var(--grad)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, color: '#fff', flexShrink: 0 }}>
+              →
+            </button>
           </div>
         </div>
       )}
 
-      {/* Toggle button */}
       <button onClick={() => setOpen(!open)} style={{
         width: 60, height: 60, borderRadius: '50%', border: 'none', cursor: 'pointer',
-        background: 'linear-gradient(135deg,#840bff,#ff0060)',
+        background: 'var(--grad)',
         boxShadow: `0 0 ${open ? 40 : 24}px rgba(132,11,255,${open ? 0.6 : 0.4})`,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         fontSize: 24, color: '#fff', transition: 'all 0.3s',
@@ -533,7 +442,7 @@ const ChatWidget = ({ lang }) => {
   );
 };
 
-// WhatsApp floating button
+// ─── WA Button ───────────────────────────────────────────────────
 const WAButton = ({ lang }) => (
   <a href="https://wa.me/525531650560" target="_blank" rel="noopener noreferrer"
     title={lang === 'es' ? 'Escríbenos por WhatsApp' : 'Message us on WhatsApp'}
@@ -541,8 +450,7 @@ const WAButton = ({ lang }) => (
       position: 'fixed', bottom: 28, left: 28, zIndex: 9998,
       width: 52, height: 52, borderRadius: '50%',
       background: '#25d366', display: 'flex', alignItems: 'center', justifyContent: 'center',
-      boxShadow: '0 4px 20px rgba(37,211,102,0.4)', transition: 'all 0.2s', textDecoration: 'none',
-      fontSize: 26,
+      boxShadow: '0 4px 20px rgba(37,211,102,0.4)', transition: 'all 0.2s', textDecoration: 'none', fontSize: 26,
     }}
     onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.1)'; e.currentTarget.style.boxShadow = '0 8px 30px rgba(37,211,102,0.5)'; }}
     onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.boxShadow = '0 4px 20px rgba(37,211,102,0.4)'; }}
