@@ -262,14 +262,18 @@ input[type=range]::-moz-range-thumb { width: 18px; height: 18px; border: none; b
   z-index: 1000;
   transition: var(--transition);
   padding: 0 24px;
+  background: rgba(11,15,26,0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
 .nav-scrolled {
-  background: rgba(11,15,26,0.85);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+  background: rgba(11,15,26,0.9);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.5);
 }
 
 .nav-inner {
@@ -285,7 +289,6 @@ input[type=range]::-moz-range-thumb { width: 18px; height: 18px; border: none; b
 .nav-logo {
   display: flex;
   align-items: center;
-  gap: 10px;
   text-decoration: none;
   flex-shrink: 0;
 }
