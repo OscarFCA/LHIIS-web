@@ -138,6 +138,28 @@ const App = () => {
     return () => document.removeEventListener('click', handleClick);
   }, []);
 
+  // CTA click tracking
+  React.useEffect(() => {
+    const handle = (e) => {
+      const el = e.target.closest('a, button');
+      if (!el) return;
+      const isCTA = el.classList.contains('btn-primary') || el.classList.contains('btn-secondary') || el.classList.contains('btn-halo');
+      if (!isCTA) return;
+      const label = (el.textContent || '').trim().slice(0, 60);
+      const href  = el.getAttribute('href') || '';
+      let location = 'unknown';
+      const section = el.closest('section');
+      if (section) location = section.id || section.className.split(' ')[0] || 'section';
+      else if (el.closest('nav')) location = 'nav';
+      else if (el.closest('footer')) location = 'footer';
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'cta_click', { cta_label: label, cta_href: href, cta_location: location });
+      }
+    };
+    document.addEventListener('click', handle);
+    return () => document.removeEventListener('click', handle);
+  }, []);
+
   // Hide loading screen
   React.useEffect(() => {
     const loading = document.getElementById('loading');
