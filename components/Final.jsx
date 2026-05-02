@@ -381,7 +381,9 @@ const ChatWidget = ({ lang }) => {
           display: 'flex', flexDirection: 'column', overflow: 'hidden', animation: 'fadeUp 0.3s ease',
         }}>
           <div style={{ padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', gap: 12, background: 'rgba(132,11,255,0.08)' }}>
-            <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'var(--grad)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, flexShrink: 0 }}>⚡</div>
+            <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'var(--grad)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <img src="uploads/IASparkle.svg" alt="" style={{ width: 22, height: 22, objectFit: 'contain', filter: 'brightness(0) invert(1)' }} />
+            </div>
             <div style={{ flex: 1 }}>
               <div className="chat-title-text">{chatTitle}</div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
